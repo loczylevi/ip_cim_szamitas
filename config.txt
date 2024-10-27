@@ -1,0 +1,52 @@
+en
+conf t
+hostname R3
+line console 0
+password cisco
+login 
+end 
+conf t
+
+enable secret class
+exit
+conf t
+line vty 0 15
+password class
+login 
+end
+conf t
+
+service password-encryption 
+end
+conf t
+banner motd #udv a halozatban R3 router#
+ex
+
+copy running-config startup-config 
+conf t
+
+
+int se0/0/0
+ip add 172.20.100.10 255.255.255.252
+no shut
+int se0/1/0
+ip add 172.20.100.22 255.255.255.252
+no shut
+int se0/0/1
+ip add 172.20.100.15 255.255.255.252
+no shut
+
+router rip
+version 2
+network 172.20.100.8
+network 172.20.100.20
+network 172.20.100.24
+ex
+ex
+wr
+
+copy running-config startup-config 
+
+
+
+
